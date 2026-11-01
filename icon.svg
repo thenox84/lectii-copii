@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#2B3A55"/>
+  <rect x="128" y="34" width="256" height="444" rx="46" fill="#0F172A"/>
+  <clipPath id="s"><rect x="146" y="64" width="220" height="392" rx="30"/></clipPath>
+  <g clip-path="url(#s)">
+    <rect x="146" y="64" width="220" height="392" fill="#7DD3FC"/>
+    <circle cx="196" cy="118" r="26" fill="#FDE047"/>
+    <path d="M150 330 Q256 280 366 320 V460 H150Z" fill="#6EE7A0"/>
+    <rect x="160" y="250" width="56" height="80" rx="6" fill="#5CC8C4"/>
+    <rect x="170" y="226" width="36" height="26" rx="6" fill="#374151"/><circle cx="188" cy="239" r="9" fill="#60A5FA"/>
+    <rect x="226" y="230" width="60" height="100" rx="6" fill="#8B5CF6"/>
+    <rect x="232" y="246" width="48" height="20" fill="#fff"/>
+    <rect x="238" y="246" width="6" height="12" fill="#1F2937"/><rect x="252" y="246" width="6" height="12" fill="#1F2937"/><rect x="266" y="246" width="6" height="12" fill="#1F2937"/>
+    <rect x="296" y="262" width="56" height="68" rx="6" fill="#EF4444"/>
+    <rect x="306" y="274" width="36" height="24" rx="3" fill="#FFFBEB" stroke="#F59E0B" stroke-width="3"/>
+    <path d="M150 352 H366" stroke="#F6EBD3" stroke-width="22"/>
+    <path d="M256 438 C226 416 214 400 222 384 C230 368 248 372 256 386 C264 372 282 368 290 384 C298 400 286 416 256 438Z" fill="#F43F5E"/>
+  </g>
+  <rect x="226" y="44" width="60" height="8" rx="4" fill="#334155"/>
+</svg>
