@@ -16,8 +16,8 @@
     const out = buf.getChannelData(0);
     const N = sr / f;
     // lungimea buclei: L eșantioane + 0,5 (media) + o întârziere fracționară (all-pass), ca nota să fie exactă
-    let L = Math.floor(N - 0.5);
-    let frac = N - 0.5 - L;
+    let L = Math.floor(N + 0.5);
+    let frac = N + 0.5 - L;
     if (frac < 0.1) {
       L -= 1;
       frac += 1;
