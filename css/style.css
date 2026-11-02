@@ -22,6 +22,7 @@ html, body {
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior: none;
   -webkit-text-size-adjust: 100%;
+  touch-action: manipulation; /* fără zoom la dublă atingere, fără întârzierea atingerii */
 }
 body { overflow: hidden; }
 #app { position: fixed; inset: 0; overflow: hidden; }

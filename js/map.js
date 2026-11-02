@@ -143,7 +143,6 @@
       const fs = portrait ? 27 : 25;
       const lw = Math.max(150, name.length * fs * 0.56 + 40);
       m += `<g class="${cls}" data-id="${id}" data-kind="bld">` +
-        `<rect x="${x - 135 * s}" y="${y - 260 * s}" width="${270 * s}" height="${300 * s}" fill="#fff" opacity="0"/>` +
         `<g transform="translate(${x - 130 * s} ${y - 232 * s}) scale(${s})"><g class="bld-art bld">${A.buildings[key]()}</g></g>` +
         `<g class="bld-label" transform="translate(${x} ${y + 36})"><rect x="${-lw / 2}" y="-23" width="${lw}" height="46" rx="23" stroke="${b ? b.color : '#ccc'}" stroke-width="5"/>` +
         `<text y="${fs * 0.36}" font-size="${fs}" text-anchor="middle">${unlocked ? '' : '🔒 '}${name}</text></g>` +
@@ -151,6 +150,7 @@
         (OT.state.stars[id] ? `<g transform="translate(${x - lw / 2 - 26} ${y + 14}) scale(.44)">${A.star()}</g>` : '') +
         (!unlocked ? `<g transform="translate(${x - 34} ${y - 170 * s}) scale(.68)">${A.lock('#CBD5E1')}</g>` : '') +
         (id === current ? `<g transform="translate(${x} ${y - (portrait ? 196 : 262) * s}) scale(${portrait ? 0.85 : 1})"><g class="pin"><path d="M-44 -64 h88 a14 14 0 0 1 14 14 v30 a14 14 0 0 1 -14 14 h-30 l-14 18 l-14 -18 h-30 a14 14 0 0 1 -14 -14 v-30 a14 14 0 0 1 14 -14z" fill="#F43F5E"/><text y="-23" font-size="30" font-weight="900" text-anchor="middle" fill="#fff">Aici!</text></g></g>` : '') +
+        `<rect class="hit" x="${x - 140 * s}" y="${y - 270 * s}" width="${280 * s}" height="${340 * s}" fill="#fff" fill-opacity="0"/>` +
         `</g>`;
     });
     // borcanul cu steluțe al Mariei (altă ediție își poate pune aici altceva: OT.cfg.mapExtra)
@@ -246,9 +246,32 @@
 
     /* ---------- atingeri ---------- */
     let candyBusy = 0;
+    const kindAt = (e) => {
+      let t = e.target;
+      if (e.clientX != null) t = document.elementFromPoint(e.clientX, e.clientY) || t;
+      return t && t.closest && t.closest('[data-kind]');
+    };
+    let press = null;
+    let lastFire = 0;
+    svg.addEventListener('pointerdown', (e) => {
+      press = { x: e.clientX, y: e.clientY, t: Date.now(), g: kindAt(e) };
+    });
+    svg.addEventListener('pointerup', (e) => {
+      const p = press;
+      press = null;
+      if (!p || !p.g) return;
+      if (Math.hypot(e.clientX - p.x, e.clientY - p.y) > 24 || Date.now() - p.t > 1200) return;
+      lastFire = Date.now();
+      activate(p.g);
+    });
+    svg.addEventListener('pointercancel', () => (press = null));
+    // rezervă: tastatură / cititoare de ecran / browsere fără pointer events
     svg.addEventListener('click', (e) => {
-      const g = e.target.closest && e.target.closest('[data-kind]');
-      if (!g) return;
+      if (Date.now() - lastFire < 700) return;
+      const g = kindAt(e);
+      if (g) activate(g);
+    });
+    function activate(g) {
       const kind = g.dataset.kind;
       const c = OT.center(g);
       if (OT.cfg.mapTap && OT.cfg.mapTap(kind, g, c, scope)) return;
@@ -321,10 +344,10 @@
           OT.go('final');
         } else {
           OT.sfx('tap');
-          OT.toast('🏡 Aici locuiește bunica. Ajută poza să ajungă la ea!', { speak: true });
+          OT.toast('🏡 Aici locuiește bunica. Mesajul tău trebuie să ajungă până la ea!', { speak: true });
         }
       }
-    });
+    }
 
     /* ---------- animații la intrare ---------- */
     if (params.justDone) {
