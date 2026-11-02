@@ -70,7 +70,7 @@
     title.appendChild(h('span', {}, b.name));
     const dots = h('div', { class: 'dots' });
     steps.forEach(() => dots.appendChild(h('i')));
-    const jar = jarMini();
+    const jar = OT.cfg.jar === false ? null : jarMini();
     const top = h('header', { class: 'topbar' }, homeBtn, title, dots, jar);
 
     const stageWrap = h('div', { class: 'stage-wrap' });
@@ -92,6 +92,7 @@
         OT.sfx('pop');
         OT.mission.open(b, () => {
           paintBow();
+          if (!jar) return;
           jar.querySelector('.jar-n').textContent = OT.starCount();
           jar.querySelector('svg').innerHTML = OT.art.jar(OT.starCount());
         }, jar);
@@ -133,7 +134,7 @@
     }
 
     const avatar = h('div', { class: 'avatar' });
-    avatar.appendChild(OT.art.head(b.guide || 'andrei'));
+    avatar.appendChild(OT.art.head(b.guide || OT.cfg.guide));
     const textEl = h('div', { class: 'l-text' });
     const adultEl = h('div', { class: 'l-adult' });
     const bubble = h('div', { class: 'bubble' }, textEl, adultEl);
@@ -206,7 +207,7 @@
         },
         praise(t) {
           OT.sfx('success');
-          const msg = t || OT.pick(['Bravo, Andrei!', 'Super, Andrei!', 'Excelent!', 'Ai reușit!']);
+          const msg = t || OT.pick(['Bravo, ' + OT.cfg.hero + '!', 'Super, ' + OT.cfg.hero + '!', 'Excelent!', 'Ai reușit!']);
           const p = h('div', { class: 'praise' }, msg);
           stageWrap.appendChild(p);
           const c = OT.center(stageWrap);
@@ -284,7 +285,7 @@
   /* --- pasul final: insigna --- */
   function badgeStep(b) {
     return {
-      text: 'Bravo, Andrei! Ai câștigat insigna <b>' + b.name + '</b>!',
+      text: 'Bravo, ' + OT.cfg.hero + '! Ai câștigat insigna <b>' + b.name + '</b>!',
       render(ctx) {
         const first = !OT.state.done[b.id];
         OT.state.done[b.id] = true;
@@ -303,7 +304,7 @@
         }, 400);
         if (first && b.id < OT.TOTAL) {
           const nb = OT.buildings[b.id + 1];
-          if (nb) ctx.setText('Bravo, Andrei! Ai câștigat insigna <b>' + b.name + '</b>! Se deschide o clădire nouă: <b>' + nb.name + '</b>.');
+          if (nb) ctx.setText('Bravo, ' + OT.cfg.hero + '! Ai câștigat insigna <b>' + b.name + '</b>! Se deschide o clădire nouă: <b>' + nb.name + '</b>.');
         }
       },
     };

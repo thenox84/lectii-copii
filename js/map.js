@@ -153,9 +153,10 @@
         (id === current ? `<g transform="translate(${x} ${y - (portrait ? 196 : 262) * s}) scale(${portrait ? 0.85 : 1})"><g class="pin"><path d="M-44 -64 h88 a14 14 0 0 1 14 14 v30 a14 14 0 0 1 -14 14 h-30 l-14 18 l-14 -18 h-30 a14 14 0 0 1 -14 -14 v-30 a14 14 0 0 1 14 -14z" fill="#F43F5E"/><text y="-23" font-size="30" font-weight="900" text-anchor="middle" fill="#fff">Aici!</text></g></g>` : '') +
         `</g>`;
     });
-    // borcanul cu steluțe al Mariei
+    // borcanul cu steluțe al Mariei (altă ediție își poate pune aici altceva: OT.cfg.mapExtra)
     const [jx, jy] = L.jar;
-    m += `<g class="jar-g tap-react" data-kind="jar" transform="translate(${jx} ${jy})"><g class="jar-in"><ellipse cx="0" cy="4" rx="58" ry="12" fill="#000" opacity=".12"/>` +
+    if (OT.cfg.mapExtra) m += OT.cfg.mapExtra(jx, jy);
+    else m += `<g class="jar-g tap-react" data-kind="jar" transform="translate(${jx} ${jy})"><g class="jar-in"><ellipse cx="0" cy="4" rx="58" ry="12" fill="#000" opacity=".12"/>` +
       `<g transform="translate(-55 -130) scale(.92)">${A.jar(OT.starCount())}</g>` +
       `<g transform="translate(0 30)"><rect x="-62" y="-18" width="124" height="36" rx="18" fill="#fff" stroke="#F472B6" stroke-width="4"/><text y="9" font-size="24" font-weight="900" text-anchor="middle" fill="#DB2777">⭐ ${OT.starCount()} / 8</text></g></g></g>`;
     // pisica
@@ -172,11 +173,11 @@
       return [right ? x + 172 : x - 172, y + 58];
     }
     const kp = kidsPos(current || (all ? null : 1));
-    m += `<g class="kids-g" transform="translate(${kp[0]} ${kp[1]})">` +
+    m += `<g class="kids-g" transform="translate(${kp[0]} ${kp[1]})">` + (OT.cfg.mapKids ? OT.cfg.mapKids() + '</g>' :
       `<g transform="translate(-86 -110) scale(.34)"><g class="kid">${A.andrei()}</g></g>` +
       `<g transform="translate(-36 -100) scale(.31)"><g class="kid">${A.maria()}</g></g>` +
       `<g transform="translate(2 -94) scale(.29)"><g class="kid">${A.elena()}</g></g>` +
-      `<g class="dog-g tap-react" data-kind="dog" transform="translate(40 -62) scale(.3)">${A.dog()}</g></g>`;
+      `<g class="dog-g tap-react" data-kind="dog" transform="translate(40 -62) scale(.3)">${A.dog()}</g></g>`);
 
     /* ---------- HTML ---------- */
     const root = h('div', { class: 'map' + (portrait ? ' portrait' : '') });
@@ -186,19 +187,23 @@
       if (!b) return;
       strip.appendChild(OT.art.badgeSVG(b.key, b.color, { class: OT.isDone(id) ? 'got' : '' }));
     });
-    const titleEl = h('div', { class: 'map-title' }, 'Orașul din Telefon', h('small', {}, all ? 'Poza a ajuns la bunica! 💌' : 'Ajută poza cățelului să ajungă la bunica!'));
+    const titleEl = h('div', { class: 'map-title' }, 'Orașul din Telefon', h('small', {}, all ? (OT.cfg.subDone || 'Poza a ajuns la bunica! 💌') : (OT.cfg.sub || 'Ajută poza cățelului să ajungă la bunica!')));
     const top = h('div', { class: 'map-top' }, titleEl, strip);
     const svg = OT.svg(`0 0 ${L.W} ${L.H}`, m, { class: 'map-svg', preserveAspectRatio: 'xMidYMid meet' });
     const screen = h('div', { class: 'map-screen' }, svg);
     const phone = h('div', { class: 'map-phone' }, screen);
 
-    const elenaBtn = h('button', { class: 'elena-btn', 'aria-label': 'Joaca Elenei' });
-    elenaBtn.appendChild(OT.art.make('bunny'));
-    elenaBtn.appendChild(h('span', {}, 'Joaca Elenei'));
-    elenaBtn.addEventListener('click', () => {
-      OT.sfx('boing');
-      OT.go('elena');
-    });
+    let elenaBtn;
+    if (OT.cfg.mapButton) elenaBtn = OT.cfg.mapButton();
+    else {
+      elenaBtn = h('button', { class: 'elena-btn', 'aria-label': 'Joaca Elenei' });
+      elenaBtn.appendChild(OT.art.make('bunny'));
+      elenaBtn.appendChild(h('span', {}, 'Joaca Elenei'));
+      elenaBtn.addEventListener('click', () => {
+        OT.sfx('boing');
+        OT.go('elena');
+      });
+    }
     const right = h('div', { class: 'small-btns' });
     const storyBtn = h('button', { class: 'icon-btn', 'aria-label': 'Povestea', title: 'Povestea de la început' }, '📖');
     storyBtn.addEventListener('click', () => {
@@ -246,6 +251,7 @@
       if (!g) return;
       const kind = g.dataset.kind;
       const c = OT.center(g);
+      if (OT.cfg.mapTap && OT.cfg.mapTap(kind, g, c, scope)) return;
       if (kind === 'bld') {
         const id = +g.dataset.id;
         if (!OT.buildings[id]) return;
@@ -259,7 +265,7 @@
           return;
         }
         OT.sfx('tap');
-        if (id === 8 && OT.isDone(8)) OT.go('piano');
+        if (id === 8 && OT.isDone(8)) OT.go(OT.cfg.room8 || 'piano');
         else OT.go('lesson', { id });
       } else if (kind === 'sun') {
         g.classList.add('happy');
@@ -429,7 +435,7 @@
       h('p', {}, roVoice ? '✅ Am găsit o voce în limba română pe acest dispozitiv.' : '⚠️ Pe acest dispozitiv nu am găsit o voce în limba română, așa că citirea poate suna ciudat. Pe iPhone/iPad: Setări → Accesibilitate → Conținut vorbit → Voci → Română. Pe Android: Setări → Text în vorbire → limba română.'),
       h('p', {}, '🎙️ Înregistrarea la pian (în Sala de concerte) folosește microfonul doar dacă dați voie. Înregistrarea rămâne doar pe acest dispozitiv.'),
       h('p', {}, '📱 Pe iPhone, dacă nu se aude nimic, verificați butonul de „silențios” de pe marginea telefonului.'),
-      h('p', {}, '🐰 Joaca Elenei se închide ținând apăsat butonul mic ✕ din colțul din dreapta-sus.'),
+      h('p', {}, OT.cfg.parentsNote || '🐰 Joaca Elenei se închide ținând apăsat butonul mic ✕ din colțul din dreapta-sus.'),
       h('div', { class: 'close-row' }, h('button', { class: 'big-btn primary', onclick: () => back.remove() }, 'Gata'))
     );
     back.appendChild(d);

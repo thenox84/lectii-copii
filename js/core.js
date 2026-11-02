@@ -8,6 +8,8 @@
 (function () {
   'use strict';
   const OT = (window.OT = window.OT || {});
+  // configurare (o altă ediție a jocului poate seta window.OT_CONFIG înainte de acest fișier)
+  OT.cfg = Object.assign({ hero: 'Andrei', guide: 'andrei', jar: true, storageKey: 'orasul-din-telefon-v1', dbName: 'orasul-din-telefon' }, window.OT_CONFIG || {});
   const SVGNS = 'http://www.w3.org/2000/svg';
   OT.SVGNS = SVGNS;
 
@@ -198,7 +200,7 @@
   };
 
   /* ---------- progres salvat ---------- */
-  const KEY = 'orasul-din-telefon-v1';
+  const KEY = OT.cfg.storageKey;
   const DEFAULTS = {
     v: 1,
     introSeen: false,
@@ -341,7 +343,7 @@
     function db() {
       return new Promise((res, rej) => {
         if (!window.indexedDB) return rej(new Error('fără IndexedDB'));
-        const r = indexedDB.open('orasul-din-telefon', 1);
+        const r = indexedDB.open(OT.cfg.dbName, 1);
         r.onupgradeneeded = () => r.result.createObjectStore('dulap');
         r.onsuccess = () => res(r.result);
         r.onerror = () => rej(r.error);

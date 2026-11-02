@@ -449,6 +449,8 @@
     sparkle: '0 0 100 100',
   };
   const HEAD = { andrei: '42 24 116 116', maria: '26 62 148 112', elena: '50 108 100 100', bunica: '46 20 108 120', bunny: '28 0 144 176' };
+  art.VB = VB; // alte ediții pot adăuga personaje
+  art.HEAD = HEAD;
   art.make = function (name, attrs, ...args) {
     const fn = art[name];
     const vb = VB[name] || '0 0 100 100';
