@@ -19,7 +19,8 @@
         '.bb7-rule{display:flex;align-items:center;gap:14px;background:#FEF3C7;border-radius:20px;padding:10px 20px;font-size:clamp(18px,2.4vw,28px);font-weight:900;width:min(640px,96%);animation:pop .6s ease both;box-shadow:0 4px 0 rgba(0,0,0,.08)}' +
         '.bb7-rule .ic{font-size:1.6em;line-height:1}' +
         '.bb7-rule:nth-child(3){animation-delay:.4s}.bb7-rule:nth-child(4){animation-delay:.8s}.bb7-rule:nth-child(5){animation-delay:1.2s}' +
-        '.bb7-sign{touch-action:none;cursor:crosshair}',
+        '.bb7-sign{touch-action:none;cursor:crosshair}' +
+        '@media (orientation:landscape) and (max-height:540px){.bb7-rules{gap:4px;padding:6px}.bb7-rules h3{font-size:20px}.bb7-rule{padding:4px 12px;font-size:16px;gap:8px}.bb7-rules .quiz-pic{font-size:28px}}',
     })
   );
 

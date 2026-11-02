@@ -8,7 +8,7 @@
   const room = '<rect width="800" height="450" fill="#F5F3FF"/><rect y="360" width="800" height="90" fill="#DDD6FE"/>';
   const table = (x, y) =>
     `<g transform="translate(${x} ${y})"><rect x="0" y="0" width="280" height="18" rx="6" fill="#B45309"/><rect x="16" y="18" width="16" height="110" fill="#92400E"/><rect x="248" y="18" width="16" height="110" fill="#92400E"/>` +
-    `<rect x="70" y="-46" width="140" height="34" rx="17" fill="#fff" stroke="#A78BFA" stroke-width="4"/><text x="140" y="-22" font-size="22" font-weight="900" text-anchor="middle" fill="#5B21B6">Masa de lucru</text></g>`;
+    `<rect x="66" y="40" width="148" height="36" rx="18" fill="#fff" stroke="#A78BFA" stroke-width="4"/><text x="140" y="65" font-size="22" font-weight="900" text-anchor="middle" fill="#5B21B6">Masa de lucru</text></g>`;
   const wardrobe = (x, y, open) =>
     `<g transform="translate(${x} ${y})"><path d="M-10 0 h220 l-14 -22 h-192z" fill="#7C3AED"/><rect x="0" y="0" width="200" height="290" rx="10" fill="#A78BFA"/>` +
     `<rect x="12" y="12" width="176" height="266" rx="8" fill="#EDE9FE"/>` +
@@ -31,7 +31,7 @@
   const sketch = (x, y) =>
     `<g class="bb3-sketch" transform="translate(${x} ${y})"><rect width="80" height="80" fill="#FFFBEB" stroke="#CBD5E1" stroke-width="3"/>` +
     `<path d="M14 60 q14 -40 28 -10 t28 -20" stroke="#64748B" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="58" cy="24" r="10" fill="none" stroke="#F472B6" stroke-width="4"/>` +
-    `<text x="40" y="100" font-size="15" font-weight="800" text-anchor="middle" fill="#64748B">schiță nesalvată</text></g>`;
+    `<text x="40" y="-12" font-size="16" font-weight="800" text-anchor="middle" fill="#64748B">schiță nesalvată</text></g>`;
 
   OT.registerBuilding({
     id: 3,

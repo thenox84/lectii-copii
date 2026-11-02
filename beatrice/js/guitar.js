@@ -46,6 +46,7 @@
           '.gt-dots i.now{box-shadow:0 0 0 3px #fff}' +
           '@media (max-width:700px),(max-height:540px){.gt-chord{min-height:42px;padding:4px 10px;font-size:15px}.gt-chord small{display:none}}' +
           '@media (orientation:landscape) and (max-height:540px){.gt-room .pr-city{display:none}.gt-room .pr-viz{min-height:44px;max-height:22vh}}' +
+          '@media (max-width:480px){.gt-room .pr-top{flex-wrap:wrap}.gt-room .pr-tabs{flex:1 1 100%;order:3}.gt-room .pr-tab{font-size:14px;padding:4px 9px;min-height:40px}}' +
           '@media (orientation:portrait) and (max-width:700px){.gt-room .pr-city{height:56px}.gt-room .pr-viz{min-height:60px;max-height:18vh;flex:0 0 auto;height:16vh}}',
       })
     );
@@ -250,7 +251,7 @@
       ['play', '🎸 ', 'Chitara', 'Chitara'],
       ['song', '🎼 ', 'Învață o melodie', 'Melodie'],
       ['tune', '🎚️ ', 'Acordorul', 'Acordor'],
-      ['rec', '🎙️ ', 'Înregistrează-te', 'Înregistrare'],
+      ['rec', '🎙️ ', 'Înregistrează-te', 'Microfon'],
     ];
     const tabBtns = {};
     T.forEach(([k, ico, long, short]) => {
