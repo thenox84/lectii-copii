@@ -39,3 +39,15 @@ Pe tabletă sau telefon puteți adăuga jocul pe ecranul principal: în Safari, 
 ## Tehnic
 
 Doar HTML, CSS și JavaScript, fără server și fără biblioteci externe. Toate desenele sunt SVG desenate în cod; sunetele sunt făcute cu Web Audio API, vocea cu Web Speech API. Se publică pe GitHub Pages direct din fișierele acestui depozit.
+
+## Ediția Beatrice 🎨🎸
+
+În folderul `beatrice/` e o a doua ediție, pentru **Beatrice (11 ani)**, căreia îi place să deseneze și care învață chitara. Se deschide la adresa jocului + `beatrice/`.
+
+- La Studioul foto, Beatrice își face **propriul desen din pătrățele**; desenul acesta călătorește prin tot orașul până la bunica.
+- Fiecare clădire explică telefonul cu analogii din desen și pictură (lumini roșu–verde–albastru, „Salvează desenul”, cutia de acuarele, puzzle-ul din bucăți, caietul de schițe cu lacăt).
+- Clădirea specială e **Studioul de chitară**: cum vibrează coarda, de ce corzile groase sună jos, cum tasta scurtează coarda, rolul cutiei de rezonanță; o chitară pe ecran cu acorduri (Mi minor, La minor, Do, Sol, Re, Fa ușor), „Oda bucuriei” de învățat, un **acordor** cu microfonul pentru chitara ei adevărată și înregistrarea unui cântec pentru bunica.
+- **Atelierul de desen** (butonul mare de pe hartă): desen liber, cu butonul „Ochii camerei” care arată desenul din pătrățele.
+- La final: răspunsul bunicii și două diplome de tipărit („Inginera-șefă și artista Orașului din Telefon” și „Chitarista Orașului din Telefon”).
+
+Progresul Beatricei se salvează separat de al lui Andrei.
